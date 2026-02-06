@@ -12,6 +12,8 @@ import (
 
 	"github.com/raghunath/k8s-autoheal-operator"
 	"github.com/raghunath/k8s-autoheal-operator/internal"
+	"github.com/zeldebro/k8s-autoheal-operator/internal"
+	"k8s-autoheal-operator/internal"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
