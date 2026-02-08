@@ -1,20 +1,32 @@
 package internal
 
 import (
-	"flag"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/util/homedir"
 )
 
-func ClusterConnect() *kubernetes.Clientset {
-	kubeconfig := flag.String("kubeconfig", "~/.kube/config", "Location of kube config")
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+func ClusterConnect() (*kubernetes.Clientset, error) {
+	var config *rest.Config
+	var err error
+
+	// try in-cluster first
+	config, err = rest.InClusterConfig()
 	if err != nil {
-		panic(err.Error())
+		// fallback to kubeconfig (local)
+		home := homedir.HomeDir()
+		config, err = clientcmd.BuildConfigFromFlags("", home+"/.kube/config")
+		if err != nil {
+			return nil, err
+		}
 	}
+
+	// create clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
-	return clientset
+
+	return clientset, nil
 }

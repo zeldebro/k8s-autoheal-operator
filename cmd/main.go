@@ -3,20 +3,17 @@ package main
 import (
 	"crypto/tls"
 	"flag"
+	"fmt"
 	"github.com/zeldebro/k8s-autoheal-operator/internal"
 	"os"
+	"time"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
-	_ "k8s.io/client-go/plugin/pkg/client/auth"
-
-	"github.com/raghunath/k8s-autoheal-operator"
-	"github.com/raghunath/k8s-autoheal-operator/internal"
-	"github.com/zeldebro/k8s-autoheal-operator/internal"
-	"k8s-autoheal-operator/internal"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
@@ -168,14 +165,30 @@ func main() {
 		setupLog.Error(err, "unable to set up ready check")
 		os.Exit(1)
 	}
+	clientset, err := internal.ClusterConnect()
+	if err != nil {
+		setupLog.Error(err, "unable to connect cluster")
+		return
+	}
 
+	fmt.Println("CONNECTED TO CLUSTER SUCCESSFULLY")
+
+	// watcher goroutine
+	go internal.GetPodStatus(clientset)
+
+	// healer goroutine loop
+	go func() {
+		for {
+			internal.HealFailedPods(clientset)
+			time.Sleep(15 * time.Second)
+		}
+	}()
+
+	// kubebuilder manager (must run)
 	setupLog.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
 		setupLog.Error(err, "problem running manager")
 		os.Exit(1)
-		client := internal.ClusterConnect()
-		if client == nil {
-			setupLog.Error(err, "unable to start manager")
-		}
 	}
+
 }
