@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a1fd563-548a-404e-a5e8-5836ee41ab17" name="Changes" comment="adding pakage">
-      <change afterPath="$PROJECT_DIR$/internal/healer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/watcher.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="5a1fd563-548a-404e-a5e8-5836ee41ab17" name="Changes" comment="Added code.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/default/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/default/kustomization.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/manager/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/manager/kustomization.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/manager/manager.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/manager/manager.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/clusterConnect.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/clusterConnect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/healer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/healer.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +219,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding pakage" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding pakage" />
+    <MESSAGE value="Added code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added code." />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

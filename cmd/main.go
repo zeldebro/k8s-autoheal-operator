@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"github.com/zeldebro/k8s-autoheal-operator/internal"
 	"os"
-	"time"
-
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
 	"k8s.io/apimachinery/pkg/runtime"
@@ -173,16 +171,10 @@ func main() {
 
 	fmt.Println("CONNECTED TO CLUSTER SUCCESSFULLY")
 
-	// watcher goroutine
+	// start your operator logic
 	go internal.GetPodStatus(clientset)
-
-	// healer goroutine loop
-	go func() {
-		for {
-			internal.HealFailedPods(clientset)
-			time.Sleep(15 * time.Second)
-		}
-	}()
+	go internal.PushFailedDeploymentsToQueue(clientset)
+	go internal.HealFailedPods(clientset)
 
 	// kubebuilder manager (must run)
 	setupLog.Info("starting manager")
