@@ -1,0 +1,43 @@
+# Binaries
+bin/
+testbin/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test files
+*_test.go
+test/
+
+# Development files
+.git/
+.github/
+.gitignore
+.golangci.yml
+.dockerignore
+Makefile
+AGENTS.md
+README.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+LICENSE
+PROJECT
+hack/
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+Dockerfile.cross
+dist/
+cover.out
+
